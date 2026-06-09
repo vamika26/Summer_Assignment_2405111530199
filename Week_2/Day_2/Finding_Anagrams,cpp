@@ -1,0 +1,48 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+
+        vector<int> result;
+
+        int n = s.length();
+        int m = p.length();
+
+        if (m > n)
+            return result;
+
+        vector<int> freqP(26, 0);
+        vector<int> freqS(26, 0);
+
+        // Frequency count for p and first window
+        for (int i = 0; i < m; i++) {
+            freqP[p[i] - 'a']++;
+            freqS[s[i] - 'a']++;
+        }
+
+        // Check first window
+        if (freqP == freqS) {
+            result.push_back(0);
+        }
+
+        // Sliding window
+        for (int i = m; i < n; i++) {
+
+            // Add new character
+            freqS[s[i] - 'a']++;
+
+            // Remove old character
+            freqS[s[i - m] - 'a']--;
+
+            // Compare frequency arrays
+            if (freqP == freqS) {
+                result.push_back(i - m + 1);
+            }
+        }
+
+        return result;
+    }
+};
