@@ -1,0 +1,30 @@
+#include <iostream>
+using namespace std;
+
+class ListNode {
+public:
+    int val;
+    ListNode* next;
+
+    ListNode(int x) {
+        val = x;
+        next = NULL;
+    }
+};
+
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* prev = NULL;
+        ListNode* curr = head;
+
+        while (curr != NULL) {
+            ListNode* nextNode = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = nextNode;
+        }
+
+        return prev;
+    }
+};
